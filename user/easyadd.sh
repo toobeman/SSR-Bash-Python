@@ -55,7 +55,12 @@ while :;do
 		break
 	fi
 done
-read -p "输入密码： " upass
+#密码输入
+if [[ ${ifupass} == y ]];then
+     read -p "输入密码： " upass
+	 else upass="ssrfree.tk"
+fi
+
 while :; do echo
 	read -p "输入流量限制(只需输入数字，单位：GB)： " ut
 	if [[ "$ut" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
@@ -98,9 +103,9 @@ fi
 echo "用户添加成功！用户信息如下："
 cd /usr/local/shadowsocksr
 if [[ $iflimitspeed == y ]]; then
-	python mujson_mgr.py -a -u $uname -p $uport -k $upass -m aes-256-cfb -O origin -o plain -t $ut -S $us
+	python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -G $uparam -S $us
 else
-	python mujson_mgr.py -a -u $uname -p $uport -k $upass -m aes-256-cfb -O origin -o plain -t $ut
+	python mujson_mgr.py -a -u $uname -p $uport -k $upass -m $um1 -O $ux1 -o $uo1 -t $ut -G $uparam
 fi
 
 SSRPID=$(ps -ef | grep 'server.py m' | grep -v grep | awk '{print $2}')
@@ -120,10 +125,10 @@ echo "服务器地址: $myipname"
 echo "远程端口号: $uport"
 echo "本地端口号: 1080"
 echo "密码: $upass"
-echo "加密方法: aes-256-cfb"
-echo "协议: origin"
-echo "混淆方式: plain"
+echo "加密方法: $um1"
+echo "协议: $ux1"
+echo "混淆方式: $uo1"
 echo "流量: $ut GB"
-echo "允许连接数: 不限"
+echo "允许连接数: $uparam"
 echo "帐号有效期: $datelimit"
 echo "===================="
