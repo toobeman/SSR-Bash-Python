@@ -82,10 +82,12 @@ if [[ $iflimitspeed == y ]]; then
 fi
 #设置端口连接数
 if [[ $iflimitdevices == y ]]; then
+		echo ""
 		read -p "输入端口允许连接数： " uparam
 fi
 #设置账号有效期
 if [[ ${iflimittime} == y ]]; then
+	echo ""
 	read -p "请输入有效期(单位：月[m]日[d]小时[h],例如：1个月就输入1m){默认：一个月}: " limit
 	if [[ -z ${limit} ]];then
 		limit="1m"
@@ -138,7 +140,7 @@ if [[ $SSRPID == "" ]]; then
 fi
 
 myipname=`cat /usr/local/shadowsocksr/myip.txt`
-echo "你可以复制以下信息给你的用户: "
+clear && echo "你可以复制以下信息给你的用户: "
 echo "===================="
 echo "用户名: $uname"
 echo "服务器地址: $myipname"
