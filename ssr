@@ -49,14 +49,13 @@ fi
 
 echo
 echo "*******************"
-echo -e "欢迎使用-SSR小助手\n"
+echo -e "\033[32mSSR小助手-科学上网\033[0m\n"
 echo "输入数字选择功能："
 echo ""
-echo "1.服务器控制"
+echo "1.服务器设置"
 echo "2.用户管理"
-echo "3.全局流量管理"
-echo "4.实验性功能"
-echo "5.程序管理"
+echo "3.高级功能"
+echo "4.程序管理"
 echo "0.退出程序"
 echo "*******************"
 while :; do echo
@@ -83,13 +82,9 @@ if [[ $choice == 2 ]];then
 fi
 
 if [[ $choice == 3 ]];then
-	bash /usr/local/SSR-Bash-Python/traffic.sh
-fi
-
-if [[ $choice == 4 ]];then
 	bash /usr/local/SSR-Bash-Python/dev.sh
 fi
 
-if [[ $choice == 5 ]];then
+if [[ $choice == 4 ]];then
 	bash /usr/local/SSR-Bash-Python/self.sh
 fi
