@@ -42,32 +42,8 @@ pqr(){
 		bash /usr/local/SSR-Bash-Python/user/qrcode.sh p $uid
 	fi
 }
-echo -e "\n1.使用用户名"
-echo "2.使用端口"
-echo ""
-while :; do echo
-	read -p "请选择： " lsid
-	if [[ ! $lsid =~ ^[1-2]$ ]]; then
-		if [[ $lsid == "" ]]; then
-			bash /usr/local/SSR-Bash-Python/user.sh || exit 0
-		fi
-		echo "输入错误! 请输入正确的数字!"
-	else
-		break	
-	fi
-done
-if [[ $lsid == 1 ]];then
-	read -p "输入用户名： " uid
-	cd /usr/local/shadowsocksr
-	checkuid=$(python mujson_mgr.py -l -u $uid 2>/dev/null)
-	if [[ -z ${checkuid} ]];then
-		echo "用户不存在！"
-		bash /usr/local/SSR-Bash-Python/user/edit.sh || exit 0
-	else
-		python mujson_mgr.py -l -u $uid
-	fi
-fi
-if [[ $lsid == 2 ]];then
+
+
 	read -p "输入端口号： " uid
 	cd /usr/local/shadowsocksr
 	checkuid=$(python mujson_mgr.py -l -p $uid 2>/dev/null)
@@ -75,9 +51,10 @@ if [[ $lsid == 2 ]];then
 		echo "用户不存在！"
 		bash /usr/local/SSR-Bash-Python/user/edit.sh || exit 0
 	else
+		clear && echo "==================================================="
 		python mujson_mgr.py -l -p $uid
+		echo "==================================================="
 	fi
-fi
 
 echo -e "\n1.修改密码"
 echo "2.修改加密"
