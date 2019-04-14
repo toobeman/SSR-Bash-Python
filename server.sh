@@ -105,7 +105,7 @@ servercheck(){
 		fi
 	fi
 }
-echo ""
+echo "*******************"
 echo "1.启动服务"
 echo "2.停止服务"
 echo "3.重启服务"
@@ -118,6 +118,7 @@ echo "9.开/关服务端开机启动"
 echo "10.服务器自动巡检系统"
 echo "11.服务器网络与IO测速"
 echo "直接回车返回上级菜单"
+echo "*******************"
 
 while :; do echo
 	read -p "请选择： " serverc

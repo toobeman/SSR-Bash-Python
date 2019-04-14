@@ -165,14 +165,16 @@ else
 fi
 }
 #Show
-echo "输入数字选择功能："
-echo ""
+
+echo "*******************"
 echo "1.检查更新"
 echo "2.切换到普通版"
 echo "3.程序自检"
 echo "4.卸载程序"
 echo "5.备份配置"
 echo "6.还原配置"
+echo "直接回车返回上级菜单"
+echo "*******************"
 while :; do echo
 	read -p "请选择： " choice
 	if [[ ! $choice =~ ^[1-6]$ ]]; then

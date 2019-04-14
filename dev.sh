@@ -65,7 +65,7 @@ AutoIptables(){
         exit 0
     fi
 }
-echo "测试区域，请勿随意使用"
+echo "*******************"
 echo "1.更新SSR-Bsah"
 echo "2.一键封禁BT下载，SPAM邮件流量（无法撤销）"
 echo "3.防止暴力破解SS连接信息 (重启后失效)"
@@ -75,6 +75,8 @@ echo "6.锐速 控制台"
 echo "7.LotServer 控制台"
 echo "8.UML-LKL(OpenVZ-BBR)安装"
 echo "9.防火墙增强配置（有风险）"
+echo "直接回车返回上级菜单"
+echo "*******************"
 while :; do echo
 	read -p "请选择： " devc
 	[ -z "$devc" ] && ssr && break
