@@ -60,7 +60,7 @@ if [[ ${ifupass} == y ]];then
      read -p "输入密码： " upass
 	 else upass="ssrfree.tk"
 fi
-
+#设置流量限制
 while :; do echo
 	read -p "输入流量限制(只需输入数字，单位：GB)： " ut
 	if [[ "$ut" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
@@ -69,7 +69,27 @@ while :; do echo
 	   echo 'Input Error!'
 	fi
 done
+#设置限速
+if [[ $iflimitspeed == y ]]; then
+	while :; do echo
+		read -p "输入端口总限速(只需输入数字，单位：KB/s)： " us
+		if [[ "$us" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
+	   		break
+		else
+	   		echo 'Input Error!'
+		fi
+	done
+fi
+#设置端口连接数
+if [[ $iflimitdevices == y ]]; then
+		read -p "输入端口允许连接数： " uparam
+fi
+#设置账号有效期
 if [[ ${iflimittime} == y ]]; then
+	read -p "请输入有效期(单位：月[m]日[d]小时[h],例如：1个月就输入1m){默认：一个月}: " limit
+	if [[ -z ${limit} ]];then
+		limit="1m"
+	fi
 	bash /usr/local/SSR-Bash-Python/timelimit.sh a ${uport} ${limit}
 	datelimit=$(cat /usr/local/SSR-Bash-Python/timelimit.db | grep "${uport}:" | awk -F":" '{ print $2 }' | sed 's/\([0-9]\{4\}\)\([0-9]\{2\}\)\([0-9}\{2\}\)\([0-9]\{2\}\)\([0-9]\{2\}\)/\1年\2月\3日 \4:/')
 fi
@@ -129,6 +149,7 @@ echo "加密方法: $um1"
 echo "协议: $ux1"
 echo "混淆方式: $uo1"
 echo "流量: $ut GB"
+echo "端口限速: $us KB/s"
 echo "允许连接数: $uparam"
 echo "帐号有效期: $datelimit"
 echo "===================="
