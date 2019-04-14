@@ -5,7 +5,7 @@ f = file("/usr/local/shadowsocksr/mudb.json");
 
 json = json.load(f);
 
-print "用户名\t端口\t已用流量\t流量限制"
+print "用户名\t\t\t端口\t已用流量\t流量限制"
 
 for x in json:
   #Convert Unit To MB
@@ -23,6 +23,6 @@ for x in json:
   	d_unit = "GB"
 
   #Print In Format
-  print "%s\t%s\t%d%s\t\t%d%s" %(x[u"user"],x[u"port"],d_int,d_unit,transfer_enable_int,transfer_unit)
+  print "%s\t\t\t%s\t%d%s\t\t%d%s" %(x[u"user"],x[u"port"],d_int,d_unit,transfer_enable_int,transfer_unit)
 
 f.close();
