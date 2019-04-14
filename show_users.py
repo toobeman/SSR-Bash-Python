@@ -5,7 +5,7 @@ f = file("/usr/local/shadowsocksr/mudb.json");
 
 json = json.load(f);
 
-print "用户名用户名\t\t端口"
+print "用户名\t\t端口"
 
 for x in json:
 
