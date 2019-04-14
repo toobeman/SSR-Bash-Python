@@ -32,15 +32,15 @@ kill -9 $$
 fi
 
 echo ""
-echo '1.一键添加用户'
-echo '2.添加用户'
-echo '3.删除用户'
-echo '4.修改用户'
-echo '5.显示用户流量信息'
-echo '6.显示用户名端口信息'
-echo '7.查看端口用户连接状况'
-echo '8.生成用户二维码'
-echo '9.为已有帐号添加有效期'
+# echo '1.一键添加用户'
+echo '1.添加用户'
+echo '2.删除用户'
+echo '3.修改用户'
+echo '4.显示用户流量信息'
+echo '5.显示用户名端口信息'
+echo '6.查看端口用户连接状况'
+echo '7.生成用户二维码'
+echo '8.为已有帐号添加有效期'
 echo "直接回车返回上级菜单"
 
 while :; do echo
@@ -56,31 +56,34 @@ while :; do echo
 	fi
 done
 
-if [[ $userc == 1 ]];then
-	bash /usr/local/SSR-Bash-Python/user/easyadd.sh
-	echo ""
-	bash /usr/local/SSR-Bash-Python/user.sh
-fi
+# if [[ $userc == 1 ]];then
+# 	bash /usr/local/SSR-Bash-Python/user/easyadd.sh
+# 	echo ""
+# 	bash /usr/local/SSR-Bash-Python/user.sh
+# fi
 
-if [[ $userc == 2 ]];then
+if [[ $userc == 1 ]];then
 	bash /usr/local/SSR-Bash-Python/user/add.sh
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 3 ]];then
+if [[ $userc == 2 ]];then
 	bash /usr/local/SSR-Bash-Python/user/del.sh
+	python /usr/local/SSR-Bash-Python/show_flow.py
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 4 ]];then
+if [[ $userc == 3 ]];then
+	python /usr/local/SSR-Bash-Python/show_flow.py
 	bash /usr/local/SSR-Bash-Python/user/edit.sh
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 5 ]];then
+if [[ $userc == 4 ]];then
+	python /usr/local/SSR-Bash-Python/show_flow.py
 	echo "1.使用用户名"
 	echo "2.使用端口"
 	echo ""
@@ -106,7 +109,7 @@ if [[ $userc == 5 ]];then
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 6 ]];then
+if [[ $userc == 5 ]];then
 	P_V=`python -V 2>&1 | awk '{print $2}'`
 	P_V1=`python -V 2>&1 | awk '{print $2}' | awk -F '.' '{print $1}'`
 	if [[ ${P_V1} == 3 ]];then
@@ -119,7 +122,8 @@ if [[ $userc == 6 ]];then
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 7 ]];then
+if [[ $userc == 6 ]];then
+	python /usr/local/SSR-Bash-Python/show_flow.py
 	read -p "请输入用户端口号:  " uid
 	if [[ "$uid" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
 		port=`netstat -anlt | awk '{print $4}' | sed -e '1,2d' | awk -F : '{print $NF}' | sort -n | uniq | grep "$uid"`
@@ -206,13 +210,15 @@ if [[ $userc == 7 ]];then
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 8 ]];then
+if [[ $userc == 7 ]];then
+	python /usr/local/SSR-Bash-Python/show_flow.py
 	bash /usr/local/SSR-Bash-Python/user/qrcode.sh
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 9 ]];then
+if [[ $userc == 8 ]];then
+	python /usr/local/SSR-Bash-Python/show_flow.py
 	bash /usr/local/SSR-Bash-Python/timelimit.sh a
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
