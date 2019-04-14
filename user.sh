@@ -31,17 +31,18 @@ echo "Does not support this OS, Please contact the author! "
 kill -9 $$
 fi
 
-echo ""
-# echo '1.一键添加用户'
-echo '1.添加用户'
-echo '2.删除用户'
-echo '3.修改用户'
-echo '4.显示用户流量信息'
-echo '5.显示用户名端口信息'
-echo '6.查看端口用户连接状况'
-echo '7.生成用户二维码'
-echo '8.为已有帐号添加有效期'
+echo "*******************"
+echo '1.一键 添加用户(使用最优配置)'
+echo '2.添加 用户'
+echo '3.删除 用户'
+echo '4.修改 用户'
+echo '5.查看 账号信息'
+echo '6.查看 账号流量'
+echo '7.显示 连接状况'
+echo '8.生成 二维码'
+echo '9.添加 账号有效期'
 echo "直接回车返回上级菜单"
+echo "*******************"
 
 while :; do echo
 	read -p "请选择： " userc
@@ -56,74 +57,52 @@ while :; do echo
 	fi
 done
 
-# if [[ $userc == 1 ]];then
-# 	bash /usr/local/SSR-Bash-Python/user/easyadd.sh
-# 	echo ""
-# 	bash /usr/local/SSR-Bash-Python/user.sh
-# fi
-
 if [[ $userc == 1 ]];then
-	bash /usr/local/SSR-Bash-Python/user/add.sh
+	bash /usr/local/SSR-Bash-Python/user/easyadd.sh
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
 if [[ $userc == 2 ]];then
+	bash /usr/local/SSR-Bash-Python/user/add.sh
+	echo ""
+	bash /usr/local/SSR-Bash-Python/user.sh
+fi
+
+if [[ $userc == 3 ]];then
 	bash /usr/local/SSR-Bash-Python/user/del.sh
 	python /usr/local/SSR-Bash-Python/show_flow.py
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 3 ]];then
+if [[ $userc == 4 ]];then
 	python /usr/local/SSR-Bash-Python/show_flow.py
 	bash /usr/local/SSR-Bash-Python/user/edit.sh
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 4 ]];then
-	python /usr/local/SSR-Bash-Python/show_flow.py
-	echo "1.使用用户名"
-	echo "2.使用端口"
-	echo ""
-	while :; do echo
-		read -p "请选择： " lsid
-		if [[ ! $lsid =~ ^[1-2]$ ]]; then
-			echo "输入错误! 请输入正确的数字!"
-		else
-			break	
-		fi
-	done
-	if [[ $lsid == 1 ]];then
-		read -p "输入用户名： " uid
-		cd /usr/local/shadowsocksr
-		python mujson_mgr.py -l -u $uid
-	fi
-	if [[ $lsid == 2 ]];then
+if [[ $userc == 5 ]];then
+	python /usr/local/SSR-Bash-Python/show_users.py
+	
 		read -p "输入端口号： " uid
+		clear && echo "==================================================="
 		cd /usr/local/shadowsocksr
 		python mujson_mgr.py -l -p $uid
-	fi
-	echo ""
-	bash /usr/local/SSR-Bash-Python/user.sh
-fi
-
-if [[ $userc == 5 ]];then
-	P_V=`python -V 2>&1 | awk '{print $2}'`
-	P_V1=`python -V 2>&1 | awk '{print $2}' | awk -F '.' '{print $1}'`
-	if [[ ${P_V1} == 3 ]];then
-		echo "你当前的python版本不支持此功能"
-		echo "当前版本：${P_V} ,请降级至2.x版本"
-	else
-		python /usr/local/SSR-Bash-Python/user/show_all_user_info.py
-	fi
+		echo "==================================================="
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
 if [[ $userc == 6 ]];then
-	python /usr/local/SSR-Bash-Python/show_flow.py
+	bash /usr/local/SSR-Bash-Python/traffic.sh
+	echo ""
+	bash /usr/local/SSR-Bash-Python/user.sh
+fi
+
+if [[ $userc == 7 ]];then
+	python /usr/local/SSR-Bash-Python/show_users.py
 	read -p "请输入用户端口号:  " uid
 	if [[ "$uid" =~ ^(-?|\+?)[0-9]+(\.?[0-9]+)?$ ]];then
 		port=`netstat -anlt | awk '{print $4}' | sed -e '1,2d' | awk -F : '{print $NF}' | sort -n | uniq | grep "$uid"`
@@ -210,15 +189,15 @@ if [[ $userc == 6 ]];then
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 7 ]];then
-	python /usr/local/SSR-Bash-Python/show_flow.py
+if [[ $userc == 8 ]];then
+	python /usr/local/SSR-Bash-Python/show_users.py
 	bash /usr/local/SSR-Bash-Python/user/qrcode.sh
 	echo ""
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi
 
-if [[ $userc == 8 ]];then
-	python /usr/local/SSR-Bash-Python/show_flow.py
+if [[ $userc == 9 ]];then
+	python /usr/local/SSR-Bash-Python/show_users.py
 	bash /usr/local/SSR-Bash-Python/timelimit.sh a
 	bash /usr/local/SSR-Bash-Python/user.sh
 fi

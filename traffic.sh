@@ -70,4 +70,4 @@ if [[ $tc == 3 ]];then
 	echo ""
 	bash /usr/local/SSR-Bash-Python/traffic.sh
 fi
-
+exit 0

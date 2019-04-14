@@ -67,39 +67,7 @@ Edit(){
 }
 
 EasyAdd(){
-	echo "1.使用用户名"
-	echo "2.使用端口"
-	echo ""
-	while :; do echo
-		read -p "请选择： " lsid
-		if [[ ! $lsid =~ ^[1-2]$ ]]; then
-			echo "输入错误! 请输入正确的数字!"
-		else
-			break	
-		fi
-	done
-	if [[ ${lsid} == 1 ]];then
-		read -p "输入用户名： " uid
-		cd /usr/local/shadowsocksr
-		checkuid=$(python mujson_mgr.py -l -u ${uid})
-		if [[ -z ${checkuid} ]];then
-			echo "用户名不存在！"
-			EasyAdd
-		else
-			read -p "请输入有效期(单位：月[m]日[d]小时[h],例如：1个月就输入1m){默认：一个月[1m]}: " limit
-			if [[ -z ${limit} ]];then
-				limit="1m"
-			fi
-			port=$(python mujson_mgr.py -l -u ${uid} | grep "port :" | awk -F" : " '{ print $2 }')
-			bash /usr/local/SSR-Bash-Python/timelimit.sh a ${port} ${limit} || EasyAdd
-			datelimit=$(cat ${userlimit} | grep "${port}:" | awk -F":" '{ print $2 }' | sed 's/\([0-9]\{4\}\)\([0-9]\{2\}\)\([0-9}\{2\}\)\([0-9]\{2\}\)\([0-9]\{2\}\)/\1年\2月\3日 \4:/')
-			if [[ -z ${datelimit} ]];then
-				datelimit="永久"
-			fi
-			echo -e "添加成功!当前用户端口号：${port},有效期至：${datelimit}\n"
-		fi
-	fi
-	if [[ ${lsid} == 2 ]];then
+	
 		read -p "输入端口号： " port
 		cd /usr/local/shadowsocksr
 		checkuid=$(python mujson_mgr.py -l -p ${port})
@@ -118,42 +86,9 @@ EasyAdd(){
 			fi
 			echo -e "添加成功!当前用户端口号：${port},有效期至：${datelimit}\n"
 		fi
-	fi
 }
 
 EasyEdit(){
-	echo "1.使用用户名"
-	echo "2.使用端口"
-	echo ""
-	while :; do echo
-		read -p "请选择： " lsid
-		if [[ ! $lsid =~ ^[1-2]$ ]]; then
-			echo "输入错误! 请输入正确的数字!"
-		else
-			break	
-		fi
-	done
-	if [[ ${lsid} == 1 ]];then
-		read -p "输入用户名： " uid
-		cd /usr/local/shadowsocksr
-		checkuid=$(python mujson_mgr.py -l -u ${uid})
-		if [[ -z ${checkuid} ]];then
-			echo "用户名不存在！"
-			EasyEdit
-		else
-			port=$(python mujson_mgr.py -l -u ${uid} | grep "port :" | awk -F" : " '{ print $2 }')
-			datelimit=$(cat ${userlimit} | grep "${port}:" | awk -F":" '{ print $2 }' | sed 's/\([0-9]\{4\}\)\([0-9]\{2\}\)\([0-9}\{2\}\)\([0-9]\{2\}\)\([0-9]\{2\}\)/\1年\2月\3日 \4:/')
-			if [[ -z ${datelimit} ]];then
-				datelimit="永久"
-			fi
-			echo -e "当前用户端口号：${port},有效期至：${datelimit}\n"
-			read -p "请输入新的有效期(单位：月[m]日[d]小时[h],例如：1个月就输入1m){默认：永久[a]}: " limit
-			if [[ -z ${limit} ]];then
-				limit="a"
-			fi
-		fi
-	fi
-	if [[ ${lsid} == 2 ]];then
 		read -p "输入端口号： " port
 		cd /usr/local/shadowsocksr
 		checkuid=$(python mujson_mgr.py -l -p ${port} 2>/dev/null)
@@ -171,12 +106,13 @@ EasyEdit(){
 				limit="a"
 			fi
 		fi
-	fi
+		
 	bash /usr/local/SSR-Bash-Python/timelimit.sh e ${port} ${limit} || EasyEdit
 	datelimit=$(cat ${userlimit} | grep "${port}:" | awk -F":" '{ print $2 }' | sed 's/\([0-9]\{4\}\)\([0-9]\{2\}\)\([0-9}\{2\}\)\([0-9]\{2\}\)\([0-9]\{2\}\)/\1年\2月\3日 \4:/')
 	if [[ -z ${datelimit} ]];then
 		datelimit="永久"
 	fi
+	exit 0
 	echo -e "修改成功!当前用户端口号：${port},新的有效期至：${datelimit}\n"
 }
 

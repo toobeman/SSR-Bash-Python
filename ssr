@@ -49,9 +49,7 @@ fi
 
 echo
 echo "*******************"
-echo ""
-echo -e "欢迎使用 AR (Python Base) Beta\n"
-echo -e "每日一言：\033[32m$(yiyan)\033[0m\n"
+echo -e "欢迎使用-SSR小助手\n"
 echo "输入数字选择功能："
 echo ""
 echo "1.服务器控制"
@@ -59,8 +57,8 @@ echo "2.用户管理"
 echo "3.全局流量管理"
 echo "4.实验性功能"
 echo "5.程序管理"
-echo "6.一键添加用户(使用最优配置)"
 echo "0.退出程序"
+echo "*******************"
 while :; do echo
 	read -p "请选择： " choice
 	if [[ ! $choice =~ ^[0-6]$ ]]; then
@@ -94,9 +92,4 @@ fi
 
 if [[ $choice == 5 ]];then
 	bash /usr/local/SSR-Bash-Python/self.sh
-fi
-
-if [[ $choice == 6 ]];then
-	bash /usr/local/SSR-Bash-Python/user/easyadd.sh
-	ssr
 fi
